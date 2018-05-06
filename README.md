@@ -1,1 +1,7 @@
-# node-blog
+# Node Blog API
+
+## Run
+
+'''
+$ docker-compose up
+'''

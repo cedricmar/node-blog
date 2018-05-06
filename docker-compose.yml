@@ -1,11 +1,11 @@
 version: '2'
 services:
-  web:
+  api:
     build: .
     restart: always
     volumes:
-      - .:/app
-      - /app/node_modules
+      - .:/app/api
+      - /node_modules
     ports:
       - "3000:3000"
     links:
