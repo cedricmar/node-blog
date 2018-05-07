@@ -1,8 +1,15 @@
+import Post from '../models/post';
 
 export default class IndexController {
 
-    index(req, res) {
-        res.send('Salut 8 ' + req.params.name);
+    async index(req, res) {
+
+        const posts = await Post.find({});
+
+        res.json({
+            resource: 'homepage',
+            posts: posts
+        });
     }
 
 }
