@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import slug from 'slug';
 
+// Schema
 const postSchema = mongoose.Schema({
     title: { type: String, required: true, unique: true },
     slug: { type: String, unique: true },
@@ -11,24 +12,29 @@ const postSchema = mongoose.Schema({
     updated_at: Date
 });
 
+const Post = mongoose.model('Post', postSchema);
+
 // Custom methods
-// ...
+
 
 // Lifecycle callbacks
 postSchema.pre('save', function(next) {
     // Slug
     this.slug = slug(this.title).toLowerCase();
     // Dates
-    const curr = new Date();
-    if (!this.created_at) {
-        this.created_at = curr;
-        this.updated_at = null;
-    } else {
-        this.updated_at = curr;
-    }
+    this.created_at = new Date();
+    this.updated_at = null;
     next();
 });
 
-const Post = mongoose.model('Post', postSchema);
+Post.preUpdate = function(updateObj) {
+    // Slug
+    if (updateObj.title) {
+        updateObj.slug = slug(updateObj.title).toLowerCase();
+    }
+    // Updated at
+    updateObj.updated_at = new Date();
+    return updateObj;
+};
 
 export default Post;
