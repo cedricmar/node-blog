@@ -4,7 +4,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import config from './config/db';
 import DefaultController from './controllers/DefaultController';
+import AuthController from './controllers/AuthController';
 import PostController from './controllers/PostController';
+import UserController from './controllers/UserController';
 
 const port = process.env.PORT;
 const app = express();
@@ -18,7 +20,9 @@ app.use(express.static('public'));
 
 // Routes
 app.use('/', DefaultController);
-app.use('/posts', PostController)
+app.use('/auth', AuthController);
+app.use('/posts', PostController);
+app.use('/users', UserController);
 
 // 404 - 500
 app.use((req, res, next) => res.status(404).send('Page introuvable !'));

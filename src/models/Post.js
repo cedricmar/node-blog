@@ -15,7 +15,7 @@ const postSchema = mongoose.Schema({
 const Post = mongoose.model('Post', postSchema);
 
 // Custom methods
-
+// ...
 
 // Lifecycle callbacks
 postSchema.pre('save', function(next) {
