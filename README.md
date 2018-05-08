@@ -2,6 +2,6 @@
 
 ## Run
 
-'''
+```
 $ docker-compose up
-'''
+```
