@@ -13,12 +13,12 @@ router.post('/login', async (req, res, next) => {
         // Find user
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            res.status(404).send('User not found.')
+            return res.status(401).send({ auth: false, token: null });
         }
         // Check password
         const validPW = bcrypt.compareSync(req.body.password, user.password);
         if(!validPW) {
-            res.status(401).send({ auth: false, token: null });
+            return res.status(401).send({ auth: false, token: null });
         }
         // Generate token
         const token = jwt.sign({ id: user._id }, config.secret, {
